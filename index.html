@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vida em Foco – Reprodução Humana</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f0fb;--ink:#1f1b3d;--card:#fff;--mut:#5d5a7a;--pri:#6b3df0;--acc:#e5407f;--ok:#0f9d73;--bad:#d93a3a;--line:#d9d3ef;--board:#16403a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14122a;--ink:#ece9ff;--card:#1f1c3d;--mut:#aaa6d0;--line:#37335f}}
+:root[data-theme="dark"]{--bg:#14122a;--ink:#ece9ff;--card:#1f1c3d;--mut:#aaa6d0;--line:#37335f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 Nunito,system-ui,sans-serif}
+h1,h2,h3,.btn,.card b{font-family:Fredoka,Nunito,sans-serif;font-weight:600;line-height:1.15}
+h1{font-size:clamp(2.4rem,7vw,4rem);margin:0 0 8px}h2{margin:22px 0 10px}
+.wrap{max-width:960px;margin:auto;padding:14px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0 12px;flex-wrap:wrap}
+.btn,.ghost,.opt,.card,.mc{font:inherit;cursor:pointer;border-radius:14px;border:2px solid var(--line);color:var(--ink);background:var(--card)}
+.btn{background:var(--pri);border-color:var(--pri);color:#fff;padding:11px 20px;font-size:1.05rem}
+.btn.alt{background:var(--acc);border-color:var(--acc)}
+.ghost{padding:8px 14px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:center}
+.hp .prof{width:100%;max-width:260px}
+.prog{height:12px;background:var(--line);border-radius:9px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ok);transition:width .4s}
+.xp{display:grid;gap:6px;max-width:360px;margin-top:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.card{padding:14px;text-align:left;display:grid;gap:4px}
+.card span{font-size:1.8rem}.card small{color:var(--mut)}
+.card:hover,.opt:hover:not(:disabled){border-color:var(--pri)}
+.scene{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.board{background:var(--board);color:#eafff7;border:8px solid #8b5e3c;border-radius:12px;padding:14px 18px;min-height:230px}
+.board h3{margin:0 0 8px;color:#ffe48a}.board li{margin:8px 0;animation:wr .6s}
+.board.mini{min-height:0;padding:8px 14px;margin:8px 0}.board.mini p{margin:4px 0}
+@keyframes wr{from{opacity:0;transform:translateX(-12px)}}
+.teacher,.corr{display:grid;gap:10px;align-items:center}
+.corr{grid-template-columns:110px 1fr;margin-top:14px;padding:12px;border:2px solid var(--acc);border-radius:16px;background:var(--card)}
+.prof{width:100%;max-width:220px;margin:auto;display:block}
+.sm .prof{max-width:110px}
+.bubble{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 14px;margin:0;min-height:80px}
+.talking .prof{animation:bob .45s infinite alternate}
+.talking .mouth{animation:mt .22s infinite alternate}
+.mouth,.brow{transform-box:fill-box;transform-origin:center}
+.oops .brow{transform:rotate(-4deg) translateY(-4px)}.oops .mouth{transform:scaleY(.4)}
+@keyframes bob{to{transform:translateY(-5px)}}@keyframes mt{to{transform:scaleY(2)}}
+.opts{display:grid;gap:10px;margin:12px 0}
+.opt{padding:13px 16px;text-align:left}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#fff}.opt.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.shake{animation:sk .35s}@keyframes sk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.topic{color:var(--pri);font-weight:700;margin:0}.big{font-size:1.7rem}
+.row{display:flex;gap:10px;flex-wrap:wrap}.center{text-align:center}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.mc{min-height:84px;padding:6px;background:var(--pri);color:#fff;font-size:.9rem}
+.mc span{visibility:hidden}.mc.up,.mc.done{background:var(--card);color:var(--ink)}.mc.up span,.mc.done span{visibility:visible}
+.mc.done{border-color:var(--ok)}
+.timer{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0 18px}
+.timer i{display:block;height:100%;background:var(--acc);animation:tm 10s linear forwards}@keyframes tm{from{width:100%}to{width:0}}
+.err{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0}
+@media(max-width:700px){.hero,.scene{grid-template-columns:1fr}.mem{grid-template-columns:repeat(3,1fr)}.corr{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><main id="app"></main>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+let S={xp:0,done:{},errs:[]},tw,timer,gt,auto=false,rp=0;
+let soundOn=true,audioCtx=null;
+let voiceEnabled=true;
+function speakTeacher(text){if(!soundOn||!voiceEnabled)return;try{if('speechSynthesis' in window&&'SpeechSynthesisUtterance' in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text));u.lang='pt-BR';u.rate=0.92;u.pitch=0.78;u.volume=1;const voices=window.speechSynthesis.getVoices();const v=voices.find(x=>/^pt-BR/i.test(x.lang)&&/male|mascul|daniel|felipe|ricardo|antonio/i.test(x.name))||voices.find(x=>/^pt-BR/i.test(x.lang))||voices.find(x=>/^pt/i.test(x.lang));if(v)u.voice=v;window.speechSynthesis.speak(u);return;}}catch(e){}try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain(),filter=audioCtx.createBiquadFilter();o.type='sawtooth';o.frequency.setValueAtTime(95,now);filter.type='lowpass';filter.frequency.value=420;g.gain.setValueAtTime(0.0001,now);g.gain.exponentialRampToValueAtTime(0.045,now+0.04);g.gain.setTargetAtTime(0.0001,now+0.22,0.08);o.connect(filter);filter.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+0.55);}catch(e){}}
+function sfx(kind='click'){if(!soundOn)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;const notes={click:[[520,.045,'sine']],correct:[[660,.09,'sine'],[880,.13,'sine']],wrong:[[220,.13,'triangle'],[165,.18,'triangle']],win:[[523,.1,'sine'],[659,.1,'sine'],[784,.1,'sine'],[1047,.22,'sine']],flip:[[430,.06,'triangle']],tick:[[340,.04,'sine']]};(notes[kind]||notes.click).forEach((n,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=n[2];o.frequency.setValueAtTime(n[0],now+i*.105);g.gain.setValueAtTime(.0001,now+i*.105);g.gain.exponentialRampToValueAtTime(.12,now+i*.105+.012);g.gain.exponentialRampToValueAtTime(.0001,now+i*.105+n[1]);o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.105);o.stop(now+i*.105+n[1]+.02)})}catch(e){}}
+try{Object.assign(S,JSON.parse(localStorage.getItem('vf')||'{}'))}catch(e){}
+const save=()=>{S.errs=S.errs.slice(-30);try{localStorage.setItem('vf',JSON.stringify(S))}catch(e){}};
+const add=n=>{S.xp=Math.max(0,S.xp+n);save()};
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const lv=()=>['Calouro','Estagiário','Cientista','Doutor','Mestre da Biologia'][Math.min(4,S.xp/100|0)];
+
+const LS=[
+{t:'Sistema reprodutor masculino',e:'🧬',sc:[
+["Olá, turma! Eu sou o Professor Heitor. Hoje vamos percorrer o sistema reprodutor masculino, órgão por órgão.",null],
+["Tudo começa nos testículos: duas gônadas dentro da bolsa escrotal. Eles produzem os espermatozoides e o hormônio testosterona.","Testículos: espermatozoides + testosterona"],
+["O escroto fica fora do corpo porque os espermatozoides se formam melhor em temperatura 2 a 3 °C abaixo da corporal.","Escroto: mantém temperatura mais baixa"],
+["Os espermatozoides amadurecem e ficam guardados no epidídimo, um tubinho enrolado sobre cada testículo.","Epidídimo: maturação e armazenamento"],
+["Na ejaculação, eles seguem pelo ducto deferente, o canal de transporte até a uretra.","Ducto deferente: transporte"],
+["No caminho, vesículas seminais e próstata produzem o líquido seminal, que nutre e protege os espermatozoides. Juntos, formam o sêmen.","Vesículas seminais + próstata: líquido seminal"],
+["Por fim, a uretra leva o sêmen para fora pelo pênis. Ela também conduz a urina, mas nunca as duas ao mesmo tempo.","Uretra: saída do sêmen e da urina"]]},
+{t:'Sistema reprodutor feminino',e:'🌸',sc:[
+["Agora o sistema reprodutor feminino. Vamos aos órgãos, um a um!",null],
+["Os ovários são duas gônadas que guardam os óvulos e produzem os hormônios estrogênio e progesterona.","Ovários: óvulos + estrogênio e progesterona"],
+["A cada ciclo, em geral um óvulo é liberado por um dos ovários. Esse momento se chama ovulação.","Ovulação: liberação do óvulo"],
+["As tubas uterinas conduzem o óvulo até o útero. É nelas que normalmente acontece a fecundação.","Tubas uterinas: transporte e fecundação"],
+["O útero é um órgão muscular. Sua camada interna, o endométrio, recebe o embrião, e ali o bebê se desenvolve.","Útero: gestação (endométrio = camada interna)"],
+["A vagina liga o colo do útero ao exterior e é o canal do parto normal. A vulva é a parte externa, com os lábios e o clitóris.","Vagina: canal do parto | Vulva: parte externa"]]},
+{t:'Ciclo menstrual',e:'🌙',sc:[
+["O ciclo menstrual dura em média 28 dias, mas entre 21 e 35 ainda pode ser normal.",null],
+["Nos primeiros dias, ocorre a menstruação: o endométrio descama e sai pela vagina.","Dias 1 a 5: menstruação"],
+["Na fase folicular, o FSH faz folículos crescerem no ovário e o estrogênio reconstrói o endométrio.","Fase folicular: FSH + estrogênio"],
+["Por volta do dia 14, um pico de LH provoca a ovulação.","Dia 14: pico de LH = ovulação"],
+["Na fase lútea, o folículo vira corpo lúteo e produz progesterona. Sem fecundação, os hormônios caem e a menstruação recomeça.","Fase lútea: progesterona; sem fecundação, menstrua"]]},
+{t:'Fecundação e gestação',e:'🍼',sc:[
+["A fecundação é o encontro de um espermatozoide com o óvulo, normalmente na tuba uterina. Forma-se o zigoto, a primeira célula do novo ser.","Fecundação (tuba uterina) → zigoto"],
+["O zigoto se divide várias vezes enquanto desce para o útero, formando a mórula e depois o blastocisto.","Zigoto → mórula → blastocisto"],
+["Cerca de 6 a 7 dias depois, o blastocisto se fixa no endométrio. Isso se chama nidação.","Nidação: fixação no endométrio"],
+["A placenta troca nutrientes, oxigênio e resíduos entre mãe e bebê pelo cordão umbilical. O líquido amniótico protege o bebê.","Placenta + cordão umbilical: trocas"],
+["Até a 8ª semana, chamamos de embrião; depois, de feto. A gestação dura cerca de 40 semanas e termina no parto.","Embrião até 8 semanas; depois, feto. Gestação ≈ 40 semanas"]]},
+{t:'Puberdade e saúde',e:'🛡️',sc:[
+["Na puberdade, hormônios provocam mudanças, como a primeira menstruação e a primeira ejaculação. Cada corpo tem o seu tempo.","Puberdade: mudanças hormonais"],
+["Métodos contraceptivos evitam a gravidez, como pílula, DIU e camisinha. Só a camisinha também protege contra ISTs.","Camisinha: evita gravidez e ISTs"],
+["ISTs como HPV, sífilis e HIV têm prevenção e tratamento. A vacina contra o HPV é oferecida pelo SUS.","ISTs: prevenir, testar, tratar"],
+["Ficou com dúvida? Converse com um adulto de confiança, com a escola ou numa unidade de saúde.","Dúvidas? Procure um adulto de confiança"]]}];
+
+const Q=[
+[0,'Onde os espermatozoides são produzidos?',['Testículos','Epidídimo','Próstata','Uretra'],0,'Eles são produzidos nos testículos. O epidídimo apenas os amadurece e armazena.'],
+[0,'Qual estrutura amadurece e armazena os espermatozoides?',['Ducto deferente','Epidídimo','Vesícula seminal','Escroto'],1,'O epidídimo, um tubo enrolado sobre o testículo, faz a maturação e o armazenamento.'],
+[0,'Quais glândulas produzem o líquido seminal?',['Ovários e tubas','Vesículas seminais e próstata','Glândulas salivares','Testículos e epidídimo'],1,'Vesículas seminais e próstata produzem o líquido que nutre e protege os espermatozoides.'],
+[0,'Por que o escroto fica fora do corpo?',['Para proteger de pancadas','Para manter temperatura menor que a do corpo','Para produzir mais testosterona','Para armazenar urina'],1,'Os espermatozoides se formam melhor em temperatura 2 a 3 °C abaixo da corporal.'],
+[1,'Onde costuma ocorrer a fecundação?',['Útero','Vagina','Tuba uterina','Ovário'],2,'A fecundação normalmente acontece na tuba uterina, e só depois o embrião segue para o útero.'],
+[1,'Quais hormônios os ovários produzem?',['Testosterona e insulina','Estrogênio e progesterona','Adrenalina e tiroxina','Somente FSH e LH'],1,'Ovários produzem estrogênio e progesterona. FSH e LH vêm da hipófise.'],
+[1,'O que é o endométrio?',['A camada interna do útero','Uma parte do ovário','O canal da uretra','A membrana do óvulo'],0,'O endométrio reveste o útero por dentro e recebe o embrião.'],
+[2,'Em um ciclo de 28 dias, a ovulação ocorre por volta do dia:',['1','7','14','25'],2,'A ovulação acontece perto do dia 14, na metade do ciclo.'],
+[2,'Qual hormônio provoca a ovulação?',['LH','Progesterona','Testosterona','Insulina'],0,'O pico de LH dispara a ovulação. O FSH estimula o crescimento dos folículos.'],
+[2,'O que acontece na menstruação?',['O óvulo é fecundado','O endométrio descama e é eliminado','Os ovários param de funcionar','A tuba uterina se rompe'],1,'Sem fecundação, os hormônios caem e o endométrio descama.'],
+[3,'O que é o zigoto?',['O óvulo antes da ovulação','A célula formada pela fecundação','O bebê com 20 semanas','O líquido do útero'],1,'Zigoto é a primeira célula do novo ser, resultado da união do espermatozoide com o óvulo.'],
+[3,'O que é a nidação?',['Fixação do blastocisto no endométrio','Liberação do óvulo','Formação do sêmen','Saída do bebê'],0,'Cerca de 6 a 7 dias após a fecundação, o blastocisto se implanta no endométrio.'],
+[3,'Qual a função da placenta?',['Produzir o óvulo','Trocar nutrientes, oxigênio e resíduos entre mãe e bebê','Armazenar espermatozoides','Produzir leite'],1,'A placenta, ligada ao bebê pelo cordão umbilical, faz as trocas entre mãe e bebê.'],
+[3,'A partir de quando chamamos o bebê em formação de feto?',['Desde a fecundação','Após a 8ª semana','Só no nascimento','Após a 30ª semana'],1,'Até a 8ª semana é embrião; depois, feto.'],
+[3,'Quanto dura, em média, uma gestação?',['20 semanas','30 semanas','40 semanas','52 semanas'],2,'Em média, 40 semanas, cerca de 9 meses.'],
+[4,'Qual método também previne ISTs?',['Pílula','DIU','Camisinha','Tabelinha'],2,'A camisinha evita gravidez e também protege contra muitas ISTs.']
+].map(([t,q,o,a,x])=>({t,q,o,a,x}));
+
+const M=[
+['Os espermatozoides são produzidos na próstata.',0,'Eles são produzidos nos testículos. A próstata faz parte do líquido seminal.',0],
+['A fecundação normalmente acontece na tuba uterina.',1,'Isso mesmo: o encontro ocorre na tuba, e depois o embrião vai ao útero.',1],
+['A menstruação acontece quando o óvulo é fecundado.',0,'É o contrário: ela ocorre quando NÃO há fecundação e o endométrio descama.',2],
+['Uma mulher já nasce com os óvulos em formação nos ovários.',1,'Verdade: os ovários já guardam os óvulos imaturos desde o nascimento.',1],
+['O sexo do bebê é definido pelo espermatozoide (X ou Y).',1,'O óvulo sempre leva X. O espermatozoide leva X (menina) ou Y (menino).',3],
+['A camisinha previne gravidez e também ISTs.',1,'Verdade, por isso ela é muito recomendada.',4],
+['É impossível engravidar durante a menstruação.',0,'É improvável, mas possível, principalmente em ciclos irregulares.',2],
+['Cada ovário libera um óvulo todos os dias.',0,'Normalmente, um óvulo por ciclo, cerca de uma vez ao mês.',2],
+['A placenta permite trocas de nutrientes entre mãe e bebê.',1,'Verdade, essa é a função principal da placenta.',3],
+['Gêmeos idênticos vêm de um único óvulo fecundado que se divide.',1,'Verdade. Gêmeos fraternos vêm de dois óvulos diferentes.',3],
+['O líquido seminal é produzido pelos testículos.',0,'Ele vem das vesículas seminais e da próstata.',0]];
+
+const prof=(m='ok')=>`<svg class="prof ${m}" viewBox="0 0 200 240" role="img" aria-label="Professor Heitor"><rect x="40" y="150" width="120" height="90" rx="30" fill="#fff" stroke="#9a96c4" stroke-width="3"/><path d="M92 150l8 40 8-40z" fill="#e5407f"/><circle cx="100" cy="95" r="52" fill="#f1c6a0"/><path d="M48 90c0-40 30-58 52-58s52 18 52 58c-10-22-30-30-52-30s-42 8-52 30z" fill="#b9b6cf"/><g fill="none" stroke="#1f1b3d" stroke-width="4"><circle cx="78" cy="98" r="14"/><circle cx="122" cy="98" r="14"/><path d="M92 98h16"/></g><circle cx="78" cy="98" r="4" fill="#1f1b3d"/><circle cx="122" cy="98" r="4" fill="#1f1b3d"/><path class="brow" d="M64 76q14-8 28 0M108 76q14-8 28 0" stroke="#7d7a9b" stroke-width="5" fill="none"/><ellipse class="mouth" cx="100" cy="132" rx="14" ry="6" fill="#8a2a3a"/></svg>`;
+
+function type(el,txt,done,box){clearInterval(tw);let i=0;box&&box.classList.add('talking');el.textContent='';speakTeacher(txt);
+const fin=()=>{clearInterval(tw);el.textContent=txt;box&&box.classList.remove('talking');done&&done()};
+tw=setInterval(()=>{el.textContent=txt.slice(0,++i);if(i>=txt.length)fin()},22);return fin}
+
+function go(x){clearTimeout(timer);clearTimeout(gt);clearInterval(tw);if('speechSynthesis'in window)window.speechSynthesis.cancel();scrollTo(0,0);const[a,b]=x.split(':');
+({home,quiz,rota:()=>rota(0),memo,mito,cad,l:()=>lesson(+b)})[a]()}
+app.addEventListener('click',e=>{const b=e.target.closest('button');if(b&&!b.disabled&&b.id!=='soundToggle')sfx('click');if(b&&b.id==='soundToggle'){soundOn=!soundOn;b.textContent=soundOn?'🔊 Sons: ligados':'🔇 Sons: desligados';if(soundOn)sfx('correct')}if(b&&b.id==='voiceToggle'){voiceEnabled=!voiceEnabled;b.textContent=voiceEnabled?'🗣️ Voz: ligada':'🔇 Voz: desligada';if(!voiceEnabled&&'speechSynthesis'in window)window.speechSynthesis.cancel();if(voiceEnabled)speakTeacher('Olá, turma! Vamos começar a aula.')}const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
+const back=(r='')=>`<header class="bar"><button class="ghost" data-go="home">Menu</button>${r}</header>`;
+
+function home(){app.innerHTML=`<section class="wrap"><div class="bar"><span>🧬 Vida em Foco</span><button class="ghost" id="soundToggle">🔊 Sons: ligados</button><button class="ghost" id="voiceToggle">🗣️ Voz: ligada</button></div></section><section class="wrap hero"><div><h1>Vida em Foco</h1><p>Aprenda como funciona a reprodução humana com o Professor Heitor: aulas animadas, quiz e minigames. Errou? Ele explica de novo.</p><div class="xp"><b>${lv()} · ${S.xp} XP</b><div class="prog"><i style="width:${S.xp%100}%"></i></div></div></div><div class="hp talking" id="hp">${prof()}<p class="bubble" id="hb"></p></div></section>
+<section class="wrap"><h2>Aulas com o professor</h2><div class="grid">${LS.map((l,i)=>`<button class="card" data-go="l:${i}"><span>${l.e}</span><b>${l.t}</b><small>${S.done[i]?'Concluída ✔':'Assistir à aula'}</small></button>`).join('')}</div>
+<h2>Desafios</h2><div class="grid">
+<button class="card" data-go="quiz"><span>❓</span><b>Quiz com correção</b><small>10 perguntas sortidas</small></button>
+<button class="card" data-go="rota"><span>🧭</span><b>Monte a rota</b><small>Ordene caminhos e fases</small></button>
+<button class="card" data-go="memo"><span>🃏</span><b>Jogo da memória</b><small>Órgão e função</small></button>
+<button class="card" data-go="mito"><span>⚡</span><b>Mito ou verdade</b><small>10 segundos por frase</small></button>
+<button class="card" data-go="cad"><span>📒</span><b>Caderno de erros</b><small>${S.errs.length} anotações</small></button></div></section>`;
+type($('#hb'),'Olá! Comece pelas aulas e depois teste seus conhecimentos nos desafios.',null,$('#hp'))}
+
+function lesson(i){const L=LS[i];let k=-1,fin=null,typing=false;
+app.innerHTML=`<section class="wrap">${back(`<b>${L.t}</b>`)}<div class="scene"><div class="board"><h3>${L.t}</h3><ul id="bl"></ul></div><div class="teacher" id="tc">${prof()}<p class="bubble" id="bb" aria-live="polite"></p></div></div><div class="bar"><span id="pg"></span><button class="btn" id="nx">Próxima fala</button></div></section>`;
+const bb=$('#bb'),tc=$('#tc'),bl=$('#bl'),nx=$('#nx');
+const step=()=>{clearTimeout(timer);if(!document.body.contains(bb))return;if(typing){fin();return}
+k++;if(k>=L.sc.length){if(!S.done[i])add(20);S.done[i]=1;save();
+app.innerHTML=`<section class="wrap center"><div class="tc">${prof()}</div><h2>Aula concluída!</h2><p>Você ganhou 20 XP na primeira vez que conclui uma aula. Que tal testar o que aprendeu?</p><div class="row" style="justify-content:center"><button class="btn" data-go="quiz">Fazer o quiz</button>${i<LS.length-1?`<button class="btn alt" data-go="l:${i+1}">Próxima aula</button>`:''}<button class="ghost" data-go="home">Menu</button></div></section>`;return}
+const[t,b]=L.sc[k];sfx('tick');if(b){const li=document.createElement('li');li.textContent=b;bl.append(li)}
+$('#pg').textContent=`Fala ${k+1} de ${L.sc.length}`;nx.textContent=k+1<L.sc.length?'Próxima fala':'Concluir aula';typing=true;
+fin=type(bb,t,()=>{typing=false;nx.disabled=false},tc)};
+nx.onclick=()=>{if(typing){fin();typing=false;}else step()};
+step()}
+
+function endGame(title,pts,sub,again){sfx('win');add(pts);
+app.innerHTML=`<section class="wrap center"><div class="tc">${prof()}</div><h2>${title}</h2><p>${sub}</p><p><b>+${pts} XP</b> · ${lv()} · ${S.xp} XP no total</p><div class="row" style="justify-content:center"><button class="btn" data-go="${again}">Jogar de novo</button><button class="btn alt" data-go="cad">Caderno de erros</button><button class="ghost" data-go="home">Menu</button></div></section>`}
+
+function quiz(){const qs=sh(Q).slice(0,10).map(q=>{const c=q.o[q.a],o=sh(q.o);return{...q,o,a:o.indexOf(c)}});let n=0,ok=0;
+const show=()=>{if(n>=qs.length)return endGame(ok>=8?'Excelente!':ok>=5?'Bom trabalho!':'Continue estudando!',ok*10,`Você acertou ${ok} de ${qs.length}. Revise os erros no caderno.`,'quiz');
+const q=qs[n];app.innerHTML=`<section class="wrap">${back(`<span>Pergunta ${n+1} de 10</span><span>${ok} acertos</span>`)}<div class="prog"><i style="width:${n*10}%"></i></div><p class="topic">${LS[q.t].t}</p><h2>${q.q}</h2><div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div id="fb"></div></section>`;
+const bs=[...app.querySelectorAll('.opt')];
+bs.forEach(b=>b.onclick=()=>{const i=+b.dataset.i,right=i===q.a;bs.forEach(x=>x.disabled=true);bs[q.a].classList.add('ok');
+if(right){ok++;sfx('correct')}else{sfx('wrong');b.classList.add('no');S.errs.push({q:q.q,mine:q.o[i],right:q.o[q.a],x:q.x,t:q.t});save()}
+$('#fb').innerHTML=`<div class="corr"><div class="sm" id="ct">${prof(right?'ok':'oops')}</div><div><p class="bubble" id="cb"></p>${right?'':`<div class="board mini"><p><s>${q.o[i]}</s></p><p>✔ ${q.o[q.a]}</p></div>`}<button class="btn" id="cn">${n<9?'Continuar':'Ver resultado'}</button></div></div>`;
+type($('#cb'),right?`Isso mesmo! ${q.x}`:`Opa, quase! Você marcou “${q.o[i]}”, mas o correto é “${q.o[q.a]}”. ${q.x} Vale rever a aula: ${LS[q.t].t}.`,null,$('#ct'));
+$('#cn').onclick=()=>{n++;show()};$('#cn').scrollIntoView({block:'nearest'})})};
+show()}
+
+const RT=[['Caminho do espermatozoide',['Testículo','Epidídimo','Ducto deferente','Uretra'],'Produção, maturação, transporte e saída.'],
+['Caminho do óvulo',['Ovário (ovulação)','Tuba uterina (fecundação)','Útero (nidação)'],'Liberação, encontro e fixação.'],
+['Ciclo menstrual',['Menstruação','Fase folicular','Ovulação','Fase lútea'],'O ciclo recomeça a cada cerca de 28 dias.']];
+function rota(r){if(!r)rp=0;const[T,st,tip]=RT[r];let nx=0,miss=0;
+app.innerHTML=`<section class="wrap">${back(`<span>Rodada ${r+1} de ${RT.length}</span>`)}<h2>${T}</h2><p>Clique nas etapas na ordem correta.</p><div class="opts">${sh(st.map((s,i)=>[s,i])).map(([s,i])=>`<button class="opt" data-i="${i}">${s}</button>`).join('')}</div><div id="fb"></div></section>`;
+app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+if(+b.dataset.i===nx){sfx('correct');b.classList.add('ok');b.textContent=`${nx+1}. ${b.textContent}`;b.disabled=true;nx++;
+if(nx===st.length){rp+=Math.max(5,30-miss*5);const last=r+1>=RT.length;
+$('#fb').innerHTML=`<div class="corr"><div class="sm" id="ct">${prof()}</div><div><p class="bubble" id="cb"></p><button class="btn" id="cn">${last?'Ver resultado':'Próxima rodada'}</button></div></div>`;
+type($('#cb'),`Perfeito! ${tip}`,null,$('#ct'));$('#cn').onclick=()=>last?endGame('Rota concluída!',rp,'Você ordenou todos os caminhos.','rota'):rota(r+1)}}
+else{sfx('wrong');miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400);
+$('#fb').innerHTML=`<div class="corr"><div class="sm">${prof('oops')}</div><p class="bubble">Ainda não! Dica: ${tip}</p></div>`}})}
+
+function memo(){const P=[['Testículos','Produzem espermatozoides'],['Epidídimo','Amadurece espermatozoides'],['Próstata','Produz líquido seminal'],['Ovário','Produz óvulos'],['Tuba uterina','Local da fecundação'],['Útero','Abriga o embrião']];
+const cs=sh(P.flatMap((p,i)=>[[i,p[0]],[i,p[1]]]));let a=null,lock=false,mv=0,ok=0;
+app.innerHTML=`<section class="wrap">${back(`<span id="mv">Jogadas: 0</span>`)}<h2>Jogo da memória</h2><p>Encontre cada órgão e a sua função.</p><div class="mem">${cs.map(([i,t])=>`<button class="mc" data-i="${i}"><span>${t}</span></button>`).join('')}</div><p id="ms" aria-live="polite"></p></section>`;
+app.querySelectorAll('.mc').forEach(b=>b.onclick=()=>{if(lock||b===a||b.classList.contains('done'))return;b.classList.add('up');
+if(!a){a=b;return}const x=a;a=null;mv++;$('#mv').textContent='Jogadas: '+mv;
+if(x.dataset.i===b.dataset.i){sfx('correct');x.className=b.className='mc done';ok++;$('#ms').textContent=`Par certo: ${P[+b.dataset.i][0]} → ${P[+b.dataset.i][1]}`;
+if(ok===6)gt=setTimeout(()=>endGame('Memória completa!',Math.max(10,60-mv*3),`Você terminou em ${mv} jogadas.`,'memo'),900)}
+else{sfx('wrong');lock=true;gt=setTimeout(()=>{x.classList.remove('up');b.classList.remove('up');lock=false},900)}})}
+
+function mito(){const qs=sh(M).slice(0,10);let n=0,pts=0,st=0,hit=0;
+const show=()=>{if(n>=qs.length)return endGame('Mito ou verdade',pts,`Você acertou ${hit} de ${qs.length}.`,'mito');
+const[tx,v,x,t]=qs[n];app.innerHTML=`<section class="wrap">${back(`<span>Frase ${n+1} de ${qs.length}</span><span>Sequência: ${st}</span>`)}<div class="timer"><i></i></div><h2 class="big">${tx}</h2><div class="row"><button class="btn" data-a="1">Verdade</button><button class="btn alt" data-a="0">Mito</button></div><div id="fb"></div></section>`;
+const bs=[...app.querySelectorAll('[data-a]')];
+const ans=a=>{clearTimeout(gt);bs.forEach(b=>b.disabled=true);$('.timer i').style.animationPlayState='paused';const right=a===v;
+if(right){sfx('correct');st++;hit++;pts+=8+Math.min(st,5)}else{sfx('wrong');st=0;S.errs.push({q:tx,mine:a<0?'Tempo esgotado':a?'Verdade':'Mito',right:v?'Verdade':'Mito',x,t});save()}
+$('#fb').innerHTML=`<div class="corr"><div class="sm" id="ct">${prof(right?'ok':'oops')}</div><div><p class="bubble" id="cb"></p><button class="btn" id="cn">Continuar</button></div></div>`;
+type($('#cb'),(right?'Certo! ':a<0?'O tempo acabou! ':'Ops! ')+x,null,$('#ct'));$('#cn').onclick=()=>{n++;show()}};
+bs.forEach(b=>b.onclick=()=>ans(+b.dataset.a));gt=setTimeout(()=>ans(-1),10000)};
+show()}
+
+function cad(){app.innerHTML=`<section class="wrap">${back()}<h2>Caderno de erros</h2>${S.errs.length?[...S.errs].reverse().map(e=>`<div class="err"><p class="topic">${LS[e.t].t}</p><b>${e.q}</b><p>Você: <s>${e.mine}</s> · Certo: <b>${e.right}</b></p><p>${e.x}</p><button class="ghost" data-go="l:${e.t}">Rever a aula</button></div>`).join(''):'<p>Nenhum erro anotado ainda. Faça o quiz para começar!</p>'}${S.errs.length?'<button class="ghost" id="cl">Limpar caderno</button>':''}</section>`;
+const c=$('#cl');if(c)c.onclick=()=>{S.errs=[];save();cad()}}
+home();
+</script></body></html>
